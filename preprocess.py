@@ -1,28 +1,45 @@
 # import numpy as np
 import csv
 import numpy as np
-import matplotlib.pyplot as plt
+import timeit
 
-# Converts training set to a list of tuples (image binary sequence, output)
-def seperateTrainingSet(trainingSet):
-    X_train = []
-    Y_train = []
-    for image in trainingSet:
-        size = len(image)
+english_training_filename = './data/Assig1-Dataset/train_1.csv'
+english_test_filename = './data/Assig1-Dataset/test_with_label_1.csv'
+english_validate_filename = './data/Assig1-Dataset/val_1.csv'
 
-        img = image[:size - 1]
-        X_train.append(img)
+greek_training_filename = './data/Assig1-Dataset/train_2.csv'
+greek_test_filename = './data/Assig1-Dataset/test_with_label_2.csv'
+greek_validate_filename = './data/Assig1-Dataset/val_2.csv'
 
-        label = image[size - 1]
-        Y_train.append(label)
 
-    assert len(X_train) == len(Y_train), "X_train should be same length as Y_train"
+def seperateTrainingSet(raw_data):
+    '''
+    Input: raw_data is a 2D list of ints. Each row is a list representing a line
+        in the original csv file. 
 
-    return (X_train, Y_train)
+    This func converts raw_data to the numpy matrix X and label vector y that is
+    conventional in ML.
+    '''
+
+    X = []
+    y = []
+
+    for image in raw_data:
+
+        img = image[:-1]
+        X.append(img)
+
+        label = image[-1]
+        y.append(label)
+
+    assert len(X) == len(y), "X should be same length as y"
+
+    return (np.array(X), np.array(y))
 
 
 # generic use for all files
 def convertFileToTrainingSet(fileName):
+    '''For a given filename, generate the X 2D-array and y label vector'''
     x = []
     training_set = []
     try:
@@ -33,12 +50,25 @@ def convertFileToTrainingSet(fileName):
                 training_set.append(x)
             training_set = seperateTrainingSet(training_set)
     except FileNotFoundError:
-        print("File not found!")
+        print(f"File not found: {fileName}")
+
     return training_set
 
-if __name__ == "__main__":
-    X_train, Y_train = convertFileToTrainingSet('./data/Assig1-Dataset/train_2.csv')
-    img = np.array(X_train[15]).reshape(32,32)
-    print(Y_train[15])
-    plt.imshow(img)
-    plt.show()
+
+def load_data(filename):
+    X = np.loadtxt(filename, dtype=np.float64, delimiter=',', skiprows=1)
+    y = X[:, -1]  # the last column contains the labels
+    X = X[:, :-1]
+
+    return X, y
+
+
+if __name__ == '__main__':
+    print(timeit.timeit(
+        f'convertFileToTrainingSet(english_training_filename)',
+        setup='from __main__ import convertFileToTrainingSet, english_training_filename',
+        number=1))
+    print(timeit.timeit(
+        f'load_data(english_training_filename)',
+        setup='from __main__ import load_data, english_training_filename',
+        number=1))
