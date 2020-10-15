@@ -1,0 +1,2 @@
+Macro-Average F1 = 0.6034
+Weighted-Average F1 = 0.6789
