@@ -9,6 +9,10 @@ clf = GaussianNB()
 d4 = lambda floatt: "{:.4f}".format(floatt)
 
 def naive_bayes(dataset):
+    language = 'english' if len(dataset['letters']) == 26 else 'greek'
+    print()
+    print(f"-"*60)
+    print(f"Running naive bayes on the {language} alphabet")
     X_train, y_train = utils.load_data(dataset['train'])
     X_val, y_val = utils.load_data(dataset['val'])
     X_test, y_test = utils.load_data(dataset['test'])
@@ -19,7 +23,6 @@ def naive_bayes(dataset):
     val_acc = model.score(X_val, y_val)
     test_acc = model.score(X_test, y_test)
     
-    print()
     print(f'train acc {d4(train_acc)}')
     print(f'val acc   {d4(val_acc)}')
     print(f'test acc  {d4(test_acc)}')
@@ -37,6 +40,10 @@ def naive_bayes(dataset):
 
     print(f'macro f1 = {d4(macrof1)}')
     print(f'weighted f1 = {d4(weightf1)}')
+    print(f"-"*60)
+
 
 
 naive_bayes(files['greek'])
+
+naive_bayes(files['english'])

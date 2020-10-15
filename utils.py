@@ -11,7 +11,7 @@ def filenames():
     accessed dynamically'''
 
     f = {
-        'eng': {
+        'english': {
             'letters': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
             'train': './data/Assig1-Dataset/train_1.csv',
             'test': './data/Assig1-Dataset/test_with_label_1.csv',
@@ -72,12 +72,12 @@ def compute_individual_metrics(confusion_matrix):
         fn = true_row_sum[label] - tp
         fp = pred_col_sum[label] - tp
         tn = total - fn - fp + tp
-        precision = tp/(tp+fp)
-        recall = tp/(tp+fn)
+        precision = tp/(tp+fp) if tp+fp != 0 else 0
+        recall = tp/(tp+fn) if tp+fn != 0 else 0
         binary_conf_matrix.append({'TP': tp, 'TN': tn, 'FP': fp, 'FN': fn,
                                    'precision': precision,
                                    'recall': recall,
-                                   'f1': 2*precision*recall/(precision+recall)})
+                                   'f1': 2*precision*recall/(precision+recall) if precision+recall != 0 else 0})
 
     return binary_conf_matrix, true_row_sum
 
