@@ -1,5 +1,6 @@
 from matplotlib.pyplot import axis
 import numpy as np
+import pandas as pd
 from collections import Counter
 from numpy.lib.function_base import average
 import sklearn
@@ -52,7 +53,7 @@ def compute_metrics(model, X, y,):
     bin_matrix, row_sums = compute_individual_metrics(confusion_matrix=confMatrix)
     macrof1, weightf1 = compute_model_fscore(bin_matrix, row_sums)
 
-    return confMatrix, bin_matrix, macrof1, weightf1
+    return y_pred, confMatrix, bin_matrix, macrof1, weightf1
 
 
 def compute_individual_metrics(confusion_matrix):
@@ -99,3 +100,16 @@ def compute_model_fscore(binary_conf_matrix, true_row_sum):
     weighted = weighted / total_instances
 
     return macro, weighted
+
+def create_csv_output(filename, y_pred, conf_matrix, label_matrix, macrof1, weightf1):
+    '''
+    Produces output csv file that contains model information.
+    '''
+
+    predicted_values = []
+    for i in range(len(y_pred)):
+        predicted_values.append({'Class': i+1, 'Prediction': int(y_pred[i])})
+
+    df = pd.DataFrame(predicted_values)
+    df = df[['Class', 'Prediction']]
+    df.to_csv(filename)

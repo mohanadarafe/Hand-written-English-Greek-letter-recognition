@@ -9,6 +9,7 @@ clf = GaussianNB()
 d4 = lambda floatt: "{:.4f}".format(floatt)
 
 def naive_bayes(dataset):
+    fileoutputname = 'GNB-DS1.csv' if len(dataset['letters']) == 26 else 'GNB-DS2.csv'
     language = 'english' if len(dataset['letters']) == 26 else 'greek'
     print()
     print(f"-"*60)
@@ -28,7 +29,7 @@ def naive_bayes(dataset):
     print(f'test acc  {d4(test_acc)}')
     print()
 
-    conf_matrix, label_matrix, macrof1, weightf1 = utils.compute_metrics(model, X_test, y_test)
+    y_pred, conf_matrix, label_matrix, macrof1, weightf1 = utils.compute_metrics(model, X_test, y_test)
 
     print(f'The confusion matrix\n{conf_matrix}\n')
     
@@ -41,6 +42,8 @@ def naive_bayes(dataset):
     print(f'macro f1 = {d4(macrof1)}')
     print(f'weighted f1 = {d4(weightf1)}')
     print(f"-"*60)
+
+    utils.create_csv_output(fileoutputname, y_pred, conf_matrix, label_matrix, macrof1, weightf1)
 
 
 
