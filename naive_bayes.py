@@ -1,57 +1,42 @@
-import preprocess
 import numpy as np
 import sklearn
+from sklearn.naive_bayes import GaussianNB
+import utils
 
-english_training_filename = './data/Assig1-Dataset/train_1.csv'
-english_test_filename = './data/Assig1-Dataset/test_with_label_1.csv'
-english_validate_filename = './data/Assig1-Dataset/val_1.csv'
+files = utils.filenames()
+clf = GaussianNB()
 
-greek_training_filename = '/data/Assig1-Dataset/train_2.csv'
+d4 = lambda floatt: "{:.4f}".format(floatt)
 
-clf = sklearn.naive_bayes.GaussianNB()
-X_train, Y_train = preprocess.convertFileToTrainingSet(english_training_filename)
+def naive_bayes(dataset):
+    X_train, y_train = utils.load_data(dataset['train'])
+    X_val, y_val = utils.load_data(dataset['val'])
+    X_test, y_test = utils.load_data(dataset['test'])
 
-X_val, Y_val = preprocess.convertFileToTrainingSet(english_training_filename)
+    model = clf.fit(X_train, y_train)
 
-X_test, Y_test = preprocess.convertFileToTrainingSet(english_test_filename)
+    train_acc = model.score(X_train, y_train)
+    val_acc = model.score(X_val, y_val)
+    test_acc = model.score(X_test, y_test)
+    
+    print()
+    print(f'train acc {d4(train_acc)}')
+    print(f'val acc   {d4(val_acc)}')
+    print(f'test acc  {d4(test_acc)}')
+    print()
 
-model = clf.fit(X_train,Y_train)
+    conf_matrix, label_matrix, macrof1, weightf1 = utils.compute_metrics(model, X_test, y_test)
 
-train_acc  = model.score(X_train, Y_train)
-val_acc = model.score(X_val, Y_val)
-test_acc= model.score(X_test,Y_test)
+    print(f'The confusion matrix\n{conf_matrix}\n')
+    
+    metric_str = ''
+    for i, letter in enumerate(dataset['letters']):
+        metric_str += f"{letter}: precision={d4(label_matrix[i]['precision'])} recall={d4(label_matrix[i]['recall'])} f1={d4(label_matrix[i]['f1'])}\n"
 
-print(f'train accuracy is {train_acc}')
-print(f'validation accuracy is {val_acc}')
-print(f'test accuracy is {test_acc} ')
+    print(f'{metric_str}\n')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    print(f'macro f1 = {d4(macrof1)}')
+    print(f'weighted f1 = {d4(weightf1)}')
 
 
-
-
-
-
-
-
-    #                         Y_test          test_prediction
-    # true prositive  TP        1                   1
-    # true negative   TN        
-    # false positive  FP
-    # false negative  FN
-
-
+naive_bayes(files['greek'])
