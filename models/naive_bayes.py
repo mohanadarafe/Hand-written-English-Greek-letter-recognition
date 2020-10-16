@@ -5,8 +5,10 @@ import utils
 files = utils.filenames()
 clf = GaussianNB()
 
+
 def naive_bayes(dataset):
-    outputdir = 'GNB-DS1' if len(dataset['letters']) == 26 else 'GNB-DS2'
+    outputdir = f'{utils.get_project_root_dir()}/reports/'
+    outputdir += 'GNB-DS1' if len(dataset['letters']) == 26 else 'GNB-DS2'
     language = 'english' if len(dataset['letters']) == 26 else 'greek'
     print()
     print(f"-"*60)
@@ -27,21 +29,25 @@ def naive_bayes(dataset):
     print()
 
     conf_matrix, label_matrix, macrof1, weightf1 = utils.compute_metrics(model, X_test, y_test)
-
+    model_metrics = (train_acc, val_acc, test_acc, macrof1, weightf1)
     print(f'The confusion matrix\n{conf_matrix}\n')
 
     metric_str = ''
     for i, letter in enumerate(dataset['letters']):
-        metric_str += f"{letter}: precision={utils.d4(label_matrix[i]['precision'])} recall={utils.d4(label_matrix[i]['recall'])} f1={utils.d4(label_matrix[i]['f1'])}\n"
+        metric_str += f"{letter}: precision={utils.d4(label_matrix[i]['precision'])}" +\
+            f"\trecall={utils.d4(label_matrix[i]['recall'])}" +\
+            f"\tf1={utils.d4(label_matrix[i]['f1'])}\n"
 
     print(f'{metric_str}\n')
 
     print(f'macro f1 = {utils.d4(macrof1)}')
     print(f'weighted f1 = {utils.d4(weightf1)}\n')
     print(f'Writing these results in {outputdir}')
-    utils.generate_report(dataset['nolabel'], outputdir, model, label_matrix, dataset, (macrof1, weightf1), "Naive Bayes")
+
+    utils.generate_report(dataset['nolabel'], outputdir, model, label_matrix, dataset, model_metrics, "Naive Bayes")
 
     print(f"-"*60)
+
 
 naive_bayes(files['greek'])
 naive_bayes(files['english'])

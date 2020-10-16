@@ -1,0 +1,5 @@
+Macro-Average F1 = 0.7748
+Weighted-Average F1 = 0.8276
+Training Accuracy = 0.8625
+Validation Accuracy = 0.8589
+Test Accuracy = 0.8343

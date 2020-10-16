@@ -6,11 +6,25 @@ from collections import Counter
 from numpy.lib.function_base import average
 import sklearn
 import os
+import sys
+
 
 def d4(floatt):
     '''Display 4 sigfigs'''
     return "{:.4f}".format(floatt)
 
+def get_project_root_dir() -> str:
+    # because the root of the project contains the .git/ repo
+    while not os.path.isdir('.git/'):
+        if os.getcwd() == '/':
+            print('\nYou are trying to get the root folder of the big data project')
+            print('but you are running this script outside of the project.')
+            print('Navigate to your big data directory and try again')
+            exit(1)
+        else:
+            os.chdir('..')
+    
+    return f'{os.getcwd()}'
 
 def filenames():
     '''This func returns a dict of filenames based on the alphabet (english |
@@ -130,13 +144,17 @@ def create_csv_class_metrics_file(filename, class_matrix, dataset):
 
 def create_txt_model_metrics_file(filename, model_metrics):
     with open(filename, mode='w') as f:
-        f.write(f'Macro-Average F1 = {d4(model_metrics[0])}\nWeighted-Average F1 = {d4(model_metrics[1])}')
+        f.write(f'Macro-Average F1 = {d4(model_metrics[3])}\n' +
+                f'Weighted-Average F1 = {d4(model_metrics[4])}\n' +
+                f'Training Accuracy = {d4(model_metrics[0])}\n' +
+                f'Validation Accuracy = {d4(model_metrics[1])}\n' +
+                f'Test Accuracy = {d4(model_metrics[2])}\n')
 
 
 def save_plotted_confusion_matrix(title, model, X, y, letters, filename):
     disp = plot_confusion_matrix(model, X, y, display_labels=letters,)
     disp.ax_.set_title(title)
-    plt.savefig(filename,dpi=800)
+    plt.savefig(filename, dpi=800)
 
 
 def generate_report(no_label_test_file, dirname, model, label_matrix, dataset, model_metrics, model_type):
@@ -147,7 +165,7 @@ def generate_report(no_label_test_file, dirname, model, label_matrix, dataset, m
     language = 'english' if len(dataset['letters']) == 26 else 'greek'
 
     if not os.path.isdir(dirname):
-        os.mkdir(dirname,)
+        os.makedirs(dirname,)
     else:
         os.replace(dirname, dirname)
 
