@@ -8,7 +8,7 @@ files = utils.filenames()
 
 def best_mlp(dataset):
     outputdir = f'{utils.get_project_root_dir()}/reports/'
-    outputdir = 'Best-MLP-DS1' if len(dataset['letters']) == 26 else 'Best-MLP-DS2'
+    outputdir += 'Best-MLP-DS1' if len(dataset['letters']) == 26 else 'Best-MLP-DS2'
     language = 'english' if len(dataset['letters']) == 26 else 'greek'
     print()
     print(f"-"*60)
