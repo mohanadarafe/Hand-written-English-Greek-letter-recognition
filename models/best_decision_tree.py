@@ -9,7 +9,7 @@ files = utils.filenames()
 
 def best_dt(dataset):
     outputdir = f'{utils.get_project_root_dir()}/reports/'
-    outputdir += 'Best-DT-DS1-splits' if len(dataset['letters']) == 26 else 'Best-DT-DS2-splits'
+    outputdir += 'Best-DT-DS1' if len(dataset['letters']) == 26 else 'Best-DT-DS2'
     language = 'english' if len(dataset['letters']) == 26 else 'greek'
     print()
     print(f"-"*60)
