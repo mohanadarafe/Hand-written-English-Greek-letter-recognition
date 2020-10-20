@@ -6,6 +6,8 @@ The following project is written in partial fulfilment of COMP472 : Artificial I
 ## Project
 The aim of the project is to take a set of 32x32 image hand-written letters in Greek & English and pass them to various machine learning models. We analyze the metrics & overall performance of each model.
 
+![graphs](https://picresize.com/images/rsz_1cfe1bbb610e545bc6cc41ae75eaa576a.png)
+
 ## Requirements
 ### Conda
 If you use Conda, you can simply run the environment setup for you. More instructions will be elaborated on the Setup.
