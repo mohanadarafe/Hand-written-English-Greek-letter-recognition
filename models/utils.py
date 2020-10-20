@@ -37,7 +37,7 @@ def filenames():
             'train': 'data/Assig1-Dataset/train_1.csv',
             'test': 'data/Assig1-Dataset/test_with_label_1.csv',
             'val': 'data/Assig1-Dataset/val_1.csv',
-            'nolabel': 'data/Assig1-Dataset/test_no_label_1.csv'
+            'nolabel': 'demo_dataset.csv' # This is the demo test file with no labels
         },
         'greek': {
             'letters': ['π', 'α', 'β', 'σ', 'γ', 'δ', 'λ', 'ω', 'µ', 'ξ'],
@@ -53,9 +53,9 @@ def filenames():
 
 def load_data(filename):
     '''
-    Loads data from the filename provided and returns X (Nx1024) and y (Nx1)
+    Loads data from the filename provided and returns matrix <X>: (Nx1024) and vector <y>: (Nx1)
     '''
-    X = np.loadtxt(filename, dtype=np.float64, delimiter=',', skiprows=1)  # NX1025
+    X = np.loadtxt(filename, dtype=np.float64, delimiter=',')  # Nx1025
     y = X[:, -1]  # the last column contains the labels Nx1
     X = X[:, :-1]  # Nx1024
 
@@ -169,7 +169,7 @@ def generate_report(no_label_test_file, dirname, model, label_matrix, dataset, m
     else:
         os.replace(dirname, dirname)
 
-    X_nolabel = np.loadtxt(no_label_test_file, dtype=np.float64, delimiter=',', skiprows=1)
+    X_nolabel = np.loadtxt(no_label_test_file, dtype=np.float64, delimiter=',')
     y_pred_no_label = model.predict(X_nolabel)
 
     create_csv_prediction_file(NO_LABEL_PREDICTION_FILE, y_pred_no_label)

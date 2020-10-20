@@ -7,7 +7,7 @@ clf = Perceptron()
 
 def perceptron(dataset):
     outputdir = f'{utils.get_project_root_dir()}/reports/'
-    outputdir += 'PER-DS1' if len(dataset['letters']) == 26 else 'PER-DS2'
+    outputdir += 'PER-DS1-demo' if len(dataset['letters']) == 26 else 'PER-DS2'
     language = 'english' if len(dataset['letters']) == 26 else 'greek'
     print()
     print(f"-"*60)
