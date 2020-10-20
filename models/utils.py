@@ -34,17 +34,17 @@ def filenames():
     f = {
         'english': {
             'letters': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-            'train': './data/Assig1-Dataset/train_1.csv',
-            'test': './data/Assig1-Dataset/test_with_label_1.csv',
-            'val': './data/Assig1-Dataset/val_1.csv',
-            'nolabel': './data/Assig1-Dataset/test_no_label_1.csv'
+            'train': 'data/Assig1-Dataset/train_1.csv',
+            'test': 'data/Assig1-Dataset/test_with_label_1.csv',
+            'val': 'data/Assig1-Dataset/val_1.csv',
+            'nolabel': 'data/Assig1-Dataset/test_no_label_1.csv'
         },
         'greek': {
             'letters': ['π', 'α', 'β', 'σ', 'γ', 'δ', 'λ', 'ω', 'µ', 'ξ'],
-            'train': './data/Assig1-Dataset/train_2.csv',
-            'test': './data/Assig1-Dataset/test_with_label_2.csv',
-            'val': './data/Assig1-Dataset/val_2.csv',
-            'nolabel': './data/Assig1-Dataset/test_no_label_2.csv'
+            'train': 'data/Assig1-Dataset/train_2.csv',
+            'test': 'data/Assig1-Dataset/test_with_label_2.csv',
+            'val': 'data/Assig1-Dataset/val_2.csv',
+            'nolabel': 'data/Assig1-Dataset/test_no_label_2.csv'
         }
     }
 
@@ -154,7 +154,7 @@ def create_txt_model_metrics_file(filename, model_metrics):
 def save_plotted_confusion_matrix(title, model, X, y, letters, filename):
     disp = plot_confusion_matrix(model, X, y, display_labels=letters,)
     disp.ax_.set_title(title)
-    plt.savefig(filename, dpi=800)
+    plt.savefig(filename,)
 
 
 def generate_report(no_label_test_file, dirname, model, label_matrix, dataset, model_metrics, model_type):

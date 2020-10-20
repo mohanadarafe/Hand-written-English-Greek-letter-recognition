@@ -1,5 +1,13 @@
+<<<<<<< 7fa8ffec49667c0e62c6f27f15a58a2c521cd111
 Macro-Average F1 = 0.0037
 Weighted-Average F1 = 0.0049
 Training Accuracy = 0.0435
 Validation Accuracy = 0.0420
 Test Accuracy = 0.0506
+=======
+Macro-Average F1 = 0.8961
+Weighted-Average F1 = 0.8963
+Training Accuracy = 1.0000
+Validation Accuracy = 1.0000
+Test Accuracy = 0.8987
+>>>>>>> Attempt to fix the image size of confusion matrix
