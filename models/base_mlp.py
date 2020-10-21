@@ -44,5 +44,7 @@ def base_mlp(dataset):
 
     print(f"-"*60)
 
-base_mlp(files['english'])
-base_mlp(files['greek'])
+
+if __name__=='__main__':
+    base_mlp(files['english'])
+    base_mlp(files['greek'])

@@ -44,5 +44,6 @@ def base_dt(dataset):
 
     print(f"-"*60)
 
-base_dt(files['english'])
-base_dt(files['greek'])
+if __name__=='__main__':
+    base_dt(files['english'])
+    base_dt(files['greek'])

@@ -66,5 +66,6 @@ def best_mlp(dataset):
     print(f"-"*60)
 
 
-best_mlp(files['english'])
-best_mlp(files['greek'])
+if __name__=='__main__':
+    best_mlp(files['english'])
+    best_mlp(files['greek'])

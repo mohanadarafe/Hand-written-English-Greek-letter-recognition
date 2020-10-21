@@ -68,5 +68,6 @@ def best_dt(dataset):
     print(f"-"*60)
 
 
-best_dt(files['english'])
-best_dt(files['greek'])
+if __name__=='__main__':
+    best_dt(files['english'])
+    best_dt(files['greek'])

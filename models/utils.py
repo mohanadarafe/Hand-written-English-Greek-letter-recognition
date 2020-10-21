@@ -37,7 +37,7 @@ def filenames():
             'train': 'data/Assig1-Dataset/train_1.csv',
             'test': 'data/Assig1-Dataset/test_with_label_1.csv',
             'val': 'data/Assig1-Dataset/val_1.csv',
-            'nolabel': 'demo_dataset.csv' # This is the demo test file with no labels
+            'nolabel': 'data/Assig1-Dataset/test_no_label_1.csv'
         },
         'greek': {
             'letters': ['π', 'α', 'β', 'σ', 'γ', 'δ', 'λ', 'ω', 'µ', 'ξ'],

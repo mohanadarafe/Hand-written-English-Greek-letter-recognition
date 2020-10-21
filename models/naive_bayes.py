@@ -49,5 +49,6 @@ def naive_bayes(dataset):
     print(f"-"*60)
 
 
-naive_bayes(files['greek'])
-naive_bayes(files['english'])
+if __name__=='__main__':
+    naive_bayes(files['greek'])
+    naive_bayes(files['english'])
